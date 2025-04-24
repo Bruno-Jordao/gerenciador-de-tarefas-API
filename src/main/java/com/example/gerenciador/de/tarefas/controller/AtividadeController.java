@@ -28,7 +28,7 @@ public class AtividadeController {
 
     @GetMapping("/{id}")
     public Atividade buscarPorId(@PathVariable Long id) {
-        return atividadeService.buscarPorID(id).orElse(null);
+        return atividadeService.buscarPorID(id);
     }
 
     @PutMapping("/{id}")

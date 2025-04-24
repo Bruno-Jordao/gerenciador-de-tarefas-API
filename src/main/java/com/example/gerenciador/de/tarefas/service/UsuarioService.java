@@ -1,5 +1,6 @@
 package com.example.gerenciador.de.tarefas.service;
 
+import com.example.gerenciador.de.tarefas.exceptions.UsuarioNaoEncontradoException;
 import com.example.gerenciador.de.tarefas.model.Usuario;
 import com.example.gerenciador.de.tarefas.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,9 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> buscarPorIdDoUsuario(Long id){
-        return usuarioRepository.findById(id);
+    public Usuario buscarPorIdDoUsuario(Long id){
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário com ID "+id +" não encontrado"));
     }
 
     public Usuario atualizarUsuarioPorId(Long id, Usuario novoUsuario){
@@ -36,7 +38,7 @@ public class UsuarioService {
                     usuario.setSenha(novoUsuario.getSenha());
                     return usuarioRepository.save(usuario);
                 })
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Não foi possível atualizar. Atividade com ID " + id + " não encontrado."));
     }
 
     public void deletarUsuario(Long id){

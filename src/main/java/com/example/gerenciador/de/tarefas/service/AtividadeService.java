@@ -1,5 +1,6 @@
 package com.example.gerenciador.de.tarefas.service;
 
+import com.example.gerenciador.de.tarefas.exceptions.AtividadeNaoEncontradaException;
 import com.example.gerenciador.de.tarefas.model.Atividade;
 import com.example.gerenciador.de.tarefas.repository.AtividadeRepository;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,9 @@ public class AtividadeService {
 
         return atividades;
     }
-    public Optional<Atividade> buscarPorID(Long id){
-        return atividadeRepository.findById(id);
+    public Atividade buscarPorID(Long id){
+        return atividadeRepository.findById(id)
+                .orElseThrow(() -> new AtividadeNaoEncontradaException("Atividade com ID "+id+ " não encontrada"));
     }
     public Atividade atualizar(Long id, Atividade novaAtividade) {
         return atividadeRepository.findById(id)
@@ -55,7 +57,7 @@ public class AtividadeService {
                     atividade.setStatus(novaAtividade.getStatus());
                     return atividadeRepository.save(atividade);
                 })
-                .orElseThrow(() -> new RuntimeException("Atividade não encontrada"));
+                .orElseThrow(() -> new AtividadeNaoEncontradaException("Não foi possível atualizar. Usuário com ID " + id + " não encontrado."));
     }
     public void excluir(Long id){
         atividadeRepository.deleteById(id);
