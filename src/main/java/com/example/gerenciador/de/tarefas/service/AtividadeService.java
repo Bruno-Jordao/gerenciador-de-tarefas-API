@@ -57,7 +57,7 @@ public class AtividadeService {
                     atividade.setStatus(novaAtividade.getStatus());
                     return atividadeRepository.save(atividade);
                 })
-                .orElseThrow(() -> new AtividadeNaoEncontradaException("Não foi possível atualizar. Usuário com ID " + id + " não encontrado."));
+                .orElseThrow(() -> new AtividadeNaoEncontradaException("Não foi possível atualizar. Atividade com ID " + id + " não encontrado."));
     }
     public void excluir(Long id){
         atividadeRepository.deleteById(id);

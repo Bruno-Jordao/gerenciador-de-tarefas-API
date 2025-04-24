@@ -38,7 +38,7 @@ public class UsuarioService {
                     usuario.setSenha(novoUsuario.getSenha());
                     return usuarioRepository.save(usuario);
                 })
-                .orElseThrow(() -> new UsuarioNaoEncontradoException("Não foi possível atualizar. Atividade com ID " + id + " não encontrado."));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Não foi possível atualizar. Usuário com ID " + id + " não encontrado."));
     }
 
     public void deletarUsuario(Long id){
