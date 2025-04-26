@@ -3,20 +3,18 @@ package com.example.gerenciador.de.tarefas.service;
 import com.example.gerenciador.de.tarefas.exceptions.AtividadeNaoEncontradaException;
 import com.example.gerenciador.de.tarefas.model.Atividade;
 import com.example.gerenciador.de.tarefas.repository.AtividadeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class AtividadeService {
 
     private final AtividadeRepository atividadeRepository;
 
-    public AtividadeService(AtividadeRepository atividadeRepository) {
-        this.atividadeRepository = atividadeRepository;
-    }
     public Atividade salvar(Atividade atividade){
         return atividadeRepository.save(atividade);
     }

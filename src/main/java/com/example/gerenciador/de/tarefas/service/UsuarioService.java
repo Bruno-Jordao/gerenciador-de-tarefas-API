@@ -3,19 +3,16 @@ package com.example.gerenciador.de.tarefas.service;
 import com.example.gerenciador.de.tarefas.exceptions.UsuarioNaoEncontradoException;
 import com.example.gerenciador.de.tarefas.model.Usuario;
 import com.example.gerenciador.de.tarefas.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-
-    public UsuarioService(UsuarioRepository usuarioRepository){
-        this.usuarioRepository = usuarioRepository;
-    }
 
     public Usuario salvarUsuario(Usuario usuario){
         return usuarioRepository.save(usuario);

@@ -1,21 +1,18 @@
 package com.example.gerenciador.de.tarefas.controller;
 
 import com.example.gerenciador.de.tarefas.model.Usuario;
-import com.example.gerenciador.de.tarefas.repository.UsuarioRepository;
 import com.example.gerenciador.de.tarefas.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
-
-    public UsuarioController(UsuarioService usuarioService){
-        this.usuarioService = usuarioService;
-    }
 
     @PostMapping
     public Usuario criarUsuario(@RequestBody Usuario usuario){
