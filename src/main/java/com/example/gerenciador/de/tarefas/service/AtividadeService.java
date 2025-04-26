@@ -4,10 +4,11 @@ import com.example.gerenciador.de.tarefas.exceptions.AtividadeNaoEncontradaExcep
 import com.example.gerenciador.de.tarefas.model.Atividade;
 import com.example.gerenciador.de.tarefas.repository.AtividadeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +19,8 @@ public class AtividadeService {
     public Atividade salvar(Atividade atividade){
         return atividadeRepository.save(atividade);
     }
-    public List<Atividade> listarTodas() {
-        List<Atividade> atividades = atividadeRepository.findAll();
+    public Page<Atividade> listarTodas(Pageable pageable) {
+        Page<Atividade> atividades = atividadeRepository.findAll(pageable);
         LocalDate hoje = LocalDate.now();
 
         for (Atividade atividade : atividades) {

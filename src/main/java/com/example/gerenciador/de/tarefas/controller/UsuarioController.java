@@ -3,10 +3,10 @@ package com.example.gerenciador.de.tarefas.controller;
 import com.example.gerenciador.de.tarefas.model.Usuario;
 import com.example.gerenciador.de.tarefas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,8 +21,8 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarTodos());
+    public ResponseEntity<Page<Usuario>> listarUsuarios(Pageable pageable) {
+        return ResponseEntity.ok(usuarioService.listarTodos(pageable));
     }
 
     @GetMapping("/{id}")

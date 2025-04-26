@@ -4,9 +4,9 @@ import com.example.gerenciador.de.tarefas.exceptions.UsuarioNaoEncontradoExcepti
 import com.example.gerenciador.de.tarefas.model.Usuario;
 import com.example.gerenciador.de.tarefas.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +18,8 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public List<Usuario> listarTodos(){
-        return usuarioRepository.findAll();
+    public Page<Usuario> listarTodos(Pageable pageable){
+        return usuarioRepository.findAll(pageable);
     }
 
     public Usuario buscarPorIdDoUsuario(Long id){
