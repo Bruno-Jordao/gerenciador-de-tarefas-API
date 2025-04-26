@@ -5,6 +5,7 @@ import com.example.gerenciador.de.tarefas.service.AtividadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,10 @@ public class AtividadeController {
 
     private final AtividadeService atividadeService;
 
+
     @PostMapping
     public ResponseEntity<Atividade> criar(@RequestBody Atividade atividade) {
-        return ResponseEntity.ok(atividadeService.salvar(atividade));
+        return ResponseEntity.status(HttpStatus.CREATED).body(atividadeService.salvar(atividade));
     }
 
     @GetMapping
