@@ -1,43 +1,45 @@
 package com.example.gerenciador.de.tarefas.controller;
 
-import com.example.gerenciador.de.tarefas.model.Atividade;
+import com.example.gerenciador.de.tarefas.dto.AtividadeDTO;
 import com.example.gerenciador.de.tarefas.service.AtividadeService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/atividades")
 public class AtividadeController {
 
     private final AtividadeService atividadeService;
 
-    public AtividadeController(AtividadeService atividadeService) {
-        this.atividadeService = atividadeService;
-    }
-
     @PostMapping
-    public Atividade criar(@RequestBody Atividade atividade) {
-        return atividadeService.salvar(atividade);
+    public ResponseEntity<AtividadeDTO> criar(@Valid @RequestBody AtividadeDTO atividadeDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(atividadeService.salvar(atividadeDTO));
     }
 
     @GetMapping
-    public List<Atividade> listarTodas() {
-        return atividadeService.listarTodas();
+    public ResponseEntity<Page<AtividadeDTO>> listarTodas(Pageable pageable) {
+        return ResponseEntity.ok(atividadeService.listarTodas(pageable));
     }
 
     @GetMapping("/{id}")
-    public Atividade buscarPorId(@PathVariable Long id) {
-        return atividadeService.buscarPorID(id);
+    public ResponseEntity<AtividadeDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(atividadeService.buscarPorID(id));
     }
 
     @PutMapping("/{id}")
-    public Atividade atualizar(@PathVariable Long id, @RequestBody Atividade atividadeAtualizada) {
-        return atividadeService.atualizar(id, atividadeAtualizada);
+    public ResponseEntity<AtividadeDTO> atualizar(@PathVariable Long id,@Valid @RequestBody AtividadeDTO atividadeDTO) {
+        return ResponseEntity.ok(atividadeService.atualizar(id, atividadeDTO));
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         atividadeService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
