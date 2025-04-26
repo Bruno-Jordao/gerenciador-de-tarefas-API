@@ -3,6 +3,7 @@ package com.example.gerenciador.de.tarefas.controller;
 import com.example.gerenciador.de.tarefas.model.Atividade;
 import com.example.gerenciador.de.tarefas.service.AtividadeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,28 @@ public class AtividadeController {
     private final AtividadeService atividadeService;
 
     @PostMapping
-    public Atividade criar(@RequestBody Atividade atividade) {
-        return atividadeService.salvar(atividade);
+    public ResponseEntity<Atividade> criar(@RequestBody Atividade atividade) {
+        return ResponseEntity.ok(atividadeService.salvar(atividade));
     }
 
     @GetMapping
-    public List<Atividade> listarTodas() {
-        return atividadeService.listarTodas();
+    public ResponseEntity<List<Atividade>> listarTodas() {
+        return ResponseEntity.ok(atividadeService.listarTodas());
     }
 
     @GetMapping("/{id}")
-    public Atividade buscarPorId(@PathVariable Long id) {
-        return atividadeService.buscarPorID(id);
+    public ResponseEntity<Atividade> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(atividadeService.buscarPorID(id));
     }
 
     @PutMapping("/{id}")
-    public Atividade atualizar(@PathVariable Long id, @RequestBody Atividade atividadeAtualizada) {
-        return atividadeService.atualizar(id, atividadeAtualizada);
+    public ResponseEntity<Atividade> atualizar(@PathVariable Long id, @RequestBody Atividade atividadeAtualizada) {
+        return ResponseEntity.ok(atividadeService.atualizar(id, atividadeAtualizada));
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         atividadeService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }

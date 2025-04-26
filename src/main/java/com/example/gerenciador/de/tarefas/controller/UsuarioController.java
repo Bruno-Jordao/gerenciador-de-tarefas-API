@@ -3,6 +3,7 @@ package com.example.gerenciador.de.tarefas.controller;
 import com.example.gerenciador.de.tarefas.model.Usuario;
 import com.example.gerenciador.de.tarefas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +16,23 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public Usuario criarUsuario(@RequestBody Usuario usuario){
-        return usuarioService.salvarUsuario(usuario);
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
     }
 
     @GetMapping
-    public List<Usuario> listarUsuarios(){
-        return usuarioService.listarTodos();
+    public ResponseEntity<List<Usuario>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarUsuario(@PathVariable Long id){
-        return usuarioService.buscarPorIdDoUsuario(id);
+    public ResponseEntity<Usuario> buscarUsuario(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.buscarPorIdDoUsuario(id));
     }
 
     @PutMapping("/{id}")
-    public Usuario atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado){
-        return usuarioService.atualizarUsuarioPorId(id, usuarioAtualizado);
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+        return ResponseEntity.ok(usuarioService.atualizarUsuarioPorId(id, usuarioAtualizado));
     }
 
     @DeleteMapping("/{id}")
