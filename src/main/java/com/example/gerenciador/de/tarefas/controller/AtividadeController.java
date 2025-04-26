@@ -2,6 +2,7 @@ package com.example.gerenciador.de.tarefas.controller;
 
 import com.example.gerenciador.de.tarefas.dto.AtividadeDTO;
 import com.example.gerenciador.de.tarefas.service.AtividadeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public class AtividadeController {
     private final AtividadeService atividadeService;
 
     @PostMapping
-    public ResponseEntity<AtividadeDTO> criar(@RequestBody AtividadeDTO atividadeDTO) {
+    public ResponseEntity<AtividadeDTO> criar(@Valid @RequestBody AtividadeDTO atividadeDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(atividadeService.salvar(atividadeDTO));
     }
 
@@ -32,7 +33,7 @@ public class AtividadeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AtividadeDTO> atualizar(@PathVariable Long id, @RequestBody AtividadeDTO atividadeDTO) {
+    public ResponseEntity<AtividadeDTO> atualizar(@PathVariable Long id,@Valid @RequestBody AtividadeDTO atividadeDTO) {
         return ResponseEntity.ok(atividadeService.atualizar(id, atividadeDTO));
     }
 
